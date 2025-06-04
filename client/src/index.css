@@ -1,0 +1,19 @@
+body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+/* Ensure buttons are visible */
+.ant-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+/* Remove any potential z-index issues */
+.ant-layout {
+  position: static !important;
+}
