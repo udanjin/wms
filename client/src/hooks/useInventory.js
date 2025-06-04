@@ -1,7 +1,5 @@
-// src/hooks/useInventory.js
-import { useState, useEffect, useCallback }
-from "react";
-import { inventoryAPI } from "../api"; // Pastikan path ini benar
+import { useState, useEffect, useCallback } from "react";
+import { inventoryAPI } from "../api";
 
 export const useInventory = (initialPage = 1, initialPageSize = 10) => {
   const [inventory, setInventory] = useState([]);
@@ -13,16 +11,18 @@ export const useInventory = (initialPage = 1, initialPageSize = 10) => {
     totalItems: 0,
     next: null,
     prev: null,
-    // pageSize akan dikelola oleh state pageSize di bawah
   });
-  const [pageSize, setPageSize] = useState(initialPageSize); // Untuk kontrol pageSize
+  const [pageSize, setPageSize] = useState(initialPageSize);
 
   const fetchInventory = useCallback(async (page, limit) => {
     setLoading(true);
     setError(null);
     try {
       const response = await inventoryAPI.getAll({ page, limit });
-      console.log("Full API response in useInventory hook (with pagination):", response);
+      console.log(
+        "Full API response in useInventory hook (with pagination):",
+        response
+      );
       const backendData = response.data;
 
       if (backendData && backendData.success) {
@@ -30,7 +30,7 @@ export const useInventory = (initialPage = 1, initialPageSize = 10) => {
         if (Array.isArray(itemsArray)) {
           setInventory(itemsArray);
           if (backendData.pagination) {
-            setPagination({ // Simpan semua info paginasi dari backend
+            setPagination({
               currentPage: backendData.pagination.currentPage,
               totalPages: backendData.pagination.totalPages,
               totalItems: backendData.pagination.totalItems,
@@ -38,15 +38,24 @@ export const useInventory = (initialPage = 1, initialPageSize = 10) => {
               prev: backendData.pagination.prev || null,
             });
           }
-          console.log("Inventory data successfully fetched and set:", itemsArray);
+          console.log(
+            "Inventory data successfully fetched and set:",
+            itemsArray
+          );
           console.log("Pagination data from backend:", backendData.pagination);
         } else {
-          console.error("Fetched data's 'data' property is not an array. Received:", itemsArray);
+          console.error(
+            "Fetched data's 'data' property is not an array. Received:",
+            itemsArray
+          );
           setInventory([]);
           setError("Format data inventaris tidak sesuai dari API.");
         }
       } else {
-        console.error("API call was not successful or backendData is missing:", backendData);
+        console.error(
+          "API call was not successful or backendData is missing:",
+          backendData
+        );
         setInventory([]);
         setError(backendData?.message || "Gagal mengambil data dari API.");
       }
@@ -64,12 +73,12 @@ export const useInventory = (initialPage = 1, initialPageSize = 10) => {
   }, [fetchInventory, pagination.currentPage, pageSize]);
 
   const goToPage = (pageNumber) => {
-    setPagination(prev => ({ ...prev, currentPage: pageNumber }));
+    setPagination((prev) => ({ ...prev, currentPage: pageNumber }));
   };
 
   const changePageSize = (newSize) => {
     setPageSize(newSize);
-    setPagination(prev => ({ ...prev, currentPage: 1 }));
+    setPagination((prev) => ({ ...prev, currentPage: 1 }));
   };
 
   const refetch = useCallback(() => {
@@ -81,9 +90,9 @@ export const useInventory = (initialPage = 1, initialPageSize = 10) => {
     loading,
     error,
     pagination,
-    pageSize, // Kembalikan pageSize saat ini
+    pageSize,
     refetch,
     goToPage,
-    changePageSize
+    changePageSize,
   };
 };

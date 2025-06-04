@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { authAPI } from '../api';
+import React, { createContext, useState, useEffect } from "react";
+import { authAPI } from "../api";
 
 export const AuthContext = createContext();
 
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem("token")) {
       loadUser();
     } else {
       setLoading(false);
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     const { data } = await authAPI.login(credentials);
-    localStorage.setItem('token', data.token);
+    localStorage.setItem("token", data.token);
     const userData = await authAPI.getMe();
     setUser(userData.data);
   };
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     await authAPI.logout();
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setUser(null);
   };
 

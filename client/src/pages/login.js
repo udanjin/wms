@@ -1,14 +1,13 @@
-// src/pages/Login.js
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, Tabs, Form, Input, Button, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { AuthContext } from '../context/authContext';
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, Tabs, Form, Input, Button, message } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { AuthContext } from "../context/authContext";
 
 const { TabPane } = Tabs;
 
 const Login = () => {
-  const [activeTab, setActiveTab] = useState('login');
+  const [activeTab, setActiveTab] = useState("login");
   const [loading, setLoading] = useState(false);
   const { login, register } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -17,10 +16,10 @@ const Login = () => {
     setLoading(true);
     try {
       await login(values);
-      message.success('Login successful');
-      navigate('/');
+      message.success("Login successful");
+      navigate("/");
     } catch (error) {
-      message.error('Login failed');
+      message.error("Login failed");
     }
     setLoading(false);
   };
@@ -29,16 +28,16 @@ const Login = () => {
     setLoading(true);
     try {
       await register(values);
-      message.success('Registration successful');
-      setActiveTab('login');
+      message.success("Registration successful");
+      setActiveTab("login");
     } catch (error) {
-      message.error('Registration failed');
+      message.error("Registration failed");
     }
     setLoading(false);
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '100px auto' }}>
+    <div style={{ maxWidth: 400, margin: "100px auto" }}>
       <Card>
         <Tabs activeKey={activeTab} onChange={setActiveTab}>
           <TabPane tab="Login" key="login">
@@ -47,7 +46,10 @@ const Login = () => {
                 <Input prefix={<UserOutlined />} placeholder="Email" />
               </Form.Item>
               <Form.Item name="password" rules={[{ required: true }]}>
-                <Input.Password prefix={<LockOutlined />} placeholder="Password" />
+                <Input.Password
+                  prefix={<LockOutlined />}
+                  placeholder="Password"
+                />
               </Form.Item>
               <Button type="primary" htmlType="submit" loading={loading} block>
                 Login
@@ -63,7 +65,10 @@ const Login = () => {
                 <Input prefix={<UserOutlined />} placeholder="Email" />
               </Form.Item>
               <Form.Item name="password" rules={[{ required: true }]}>
-                <Input.Password prefix={<LockOutlined />} placeholder="Password" />
+                <Input.Password
+                  prefix={<LockOutlined />}
+                  placeholder="Password"
+                />
               </Form.Item>
               <Form.Item name="role" initialValue="staff">
                 <Input disabled value="staff" />

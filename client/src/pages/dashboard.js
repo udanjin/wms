@@ -1,4 +1,3 @@
-// src/pages/Dashboard.js
 import React from "react";
 import { Card, Row, Col, Statistic } from "antd";
 import { useInventory } from "../hooks/useInventory";

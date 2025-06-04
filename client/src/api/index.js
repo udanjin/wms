@@ -1,5 +1,5 @@
-// src/api/index.js
-import axiosInstance from './axiosInstance'; // Pastikan path ini benar
+
+import axiosInstance from './axiosInstance'; 
 
 export const authAPI = {
   login: (credentials) => axiosInstance.post('/auth/login', credentials),

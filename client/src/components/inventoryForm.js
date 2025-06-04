@@ -1,7 +1,6 @@
-// src/components/InventoryForm.js
-import React, {useState} from 'react';
-import { Form, Input, InputNumber, Button, message } from 'antd';
-import { inventoryAPI } from '../api';
+import React, { useState } from "react";
+import { Form, Input, InputNumber, Button, message } from "antd";
+import { inventoryAPI } from "../api";
 
 const InventoryForm = ({ initialValues, onSuccess }) => {
   const [form] = Form.useForm();
@@ -18,14 +17,14 @@ const InventoryForm = ({ initialValues, onSuccess }) => {
     try {
       if (initialValues) {
         await inventoryAPI.update(initialValues._id, values);
-        message.success('Item updated successfully');
+        message.success("Item updated successfully");
       } else {
         await inventoryAPI.create(values);
-        message.success('Item added successfully');
+        message.success("Item added successfully");
       }
       onSuccess();
     } catch (error) {
-      message.error('Operation failed');
+      message.error("Operation failed");
     }
     setLoading(false);
   };
@@ -35,7 +34,7 @@ const InventoryForm = ({ initialValues, onSuccess }) => {
       <Form.Item
         name="name"
         label="Name"
-        rules={[{ required: true, message: 'Please input the name!' }]}
+        rules={[{ required: true, message: "Please input the name!" }]}
       >
         <Input placeholder="Enter name" />
       </Form.Item>
@@ -43,7 +42,7 @@ const InventoryForm = ({ initialValues, onSuccess }) => {
       <Form.Item
         name="description"
         label="Description"
-        rules={[{ required: true, message: 'Please input the description!' }]}
+        rules={[{ required: true, message: "Please input the description!" }]}
       >
         <Input.TextArea rows={4} placeholder="Enter description" />
       </Form.Item>
@@ -51,22 +50,22 @@ const InventoryForm = ({ initialValues, onSuccess }) => {
       <Form.Item
         name="quantity"
         label="Quantity"
-        rules={[{ required: true, message: 'Please input the quantity!' }]}
+        rules={[{ required: true, message: "Please input the quantity!" }]}
       >
-        <InputNumber min={0} style={{ width: '100%' }} />
+        <InputNumber min={0} style={{ width: "100%" }} />
       </Form.Item>
 
       <Form.Item
         name="price"
         label="Price"
-        rules={[{ required: true, message: 'Please input the price!' }]}
+        rules={[{ required: true, message: "Please input the price!" }]}
       >
-        <InputNumber min={0} step={0.01} style={{ width: '100%' }} />
+        <InputNumber min={0} step={0.01} style={{ width: "100%" }} />
       </Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={loading}>
-          {initialValues ? 'Update' : 'Add'} Inventory
+          {initialValues ? "Update" : "Add"} Inventory
         </Button>
       </Form.Item>
     </Form>
